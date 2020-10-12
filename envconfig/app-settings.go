@@ -2,10 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
 
-	"github.com/pkg/errors"
 	"github.com/vrischmann/envconfig"
 )
 
@@ -51,19 +51,19 @@ func ReadFromFileAndEnv(settings interface{}) error {
 	data, err := ioutil.ReadAll(file)
 
 	if err != nil {
-		return errors.Wrap(err, "Failed to read appsettings.json")
+		return fmt.Errorf("Failed to read appsettings.json: %v", err)
 	}
 
 	err = json.Unmarshal(data, settings)
 
 	if err != nil {
-		return errors.Wrap(err, "Failed to unmarshal appsettings")
+		return fmt.Errorf("Failed to unmarshal appsettings: %v", err)
 	}
 
 	err = envconfig.Init(settings)
 
 	if err != nil {
-		err = errors.Wrap(err, "Failed to update with env vars")
+		err = fmt.Errorf("Failed to update with env vars: %v", err)
 	}
 	return err
 }
