@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -13,6 +14,19 @@ func main() {
 	os.Setenv("DB_USERNAME", "admin")
 	os.Setenv("DB_PASSWORD", "password")
 	os.Setenv("DB_NAME", "testdb")
+
+	for _, env := range os.Environ() {
+		// env is
+		envPair := strings.SplitN(env, "=", 2)
+		if len(envPair[0]) > 3 && envPair[0][:2] == "DB" {
+			key := envPair[0]
+			value := envPair[1]
+			fmt.Printf("%s : %s\n", key, value)
+		}
+	}
+
+	// Delete all environment variables
+	// os.Clearenv()
 
 	// Get the value of an Environment Variable
 	host := os.Getenv("SITE_TITLE")
