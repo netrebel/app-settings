@@ -2,7 +2,7 @@
 
 Source: https://travix.io/making-your-go-app-configurable-bb5e5f4a9df9
 
-* A settings file in your repository for local testing
+* A settings file in your repository for local testing (appsettings.json)
 * Environment variables that can be configured upon deployment
 * Some logic in your Go code to combine these two into a settings struct that you can use in your application.
 
